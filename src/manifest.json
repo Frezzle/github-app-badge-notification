@@ -1,7 +1,7 @@
 {
   "name": "GitHub app badge notification",
   "version": "1.0.0",
-  "manifest_version": 2,
+  "manifest_version": 3,
   "description": "Show badge notifications in the taskbar when using GitHub as a PWA",
   "homepage_url": "https://github.com/Frezzle/github-app-badge-notification",
   "icons": {
@@ -9,10 +9,16 @@
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   },
+  "permissions": [
+    "alarms"
+  ],
   "content_scripts": [
     {
       "matches": ["*://github.com/*"],
       "js": ["content.js"]
     }
-  ]
+  ],
+  "background": {
+    "service_worker": "worker.js", // TODO do alarms thing here i.e. split the content script into content script and bg worker, because alarm not possible in content script, and DOM parsing not possible in background worker -_- https://stackoverflow.com/questions/25590952/cannot-call-chrome-alarms-create-from-a-content-script
+  }
 }

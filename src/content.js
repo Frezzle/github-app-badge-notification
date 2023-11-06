@@ -1,4 +1,4 @@
-(() => {
+console.log('first')
 	let unreadCount;
 
 	function getUnreadCount(doc) {
@@ -20,20 +20,15 @@
 		return count;
 	}
 
-	function getNotificationsPage() {
-		return new Promise((resolve) => {
-			const x = new XMLHttpRequest();
-			x.open('GET', '/notifications', true);
-			x.withCredentials = true; // send cookie with request (auth)
-			x.setRequestHeader('Cache-Control', 'no-cache');
-			x.onreadystatechange = function () {
-				if (x.readyState == XMLHttpRequest.DONE && x.status == 200) {
-					const doc = (new DOMParser()).parseFromString(x.responseText, "text/html");
-					resolve(doc);
-				}
-			};
-			x.send(null);
+	async function getNotificationsPage() {
+		const resp = await fetch('https://github.com/notifications', {
+			headers: {
+				'Cache-Control': 'no-cache',
+			},
+			mode: 'no-cors',
 		});
+		const body = await resp.text();
+		return new DOMParser().parseFromString(body, 'text/html');
 	}
 
 	async function updateBadgeIcon() {
@@ -50,8 +45,13 @@
 
 	// Only bother to keep badge updated if the app is standalone (i.e. being used as PWA).
 	// There seems to be no point (AFAICT) in doing it when viewing inside a browser tab.
-	if (window.matchMedia('(display-mode: standalone)').matches) {
+	// if (window.matchMedia('(display-mode: standalone)').matches) {
 		updateBadgeIcon();
-		setInterval(updateBadgeIcon, 10000);
-	}
-})();
+		console.log(chrome)
+		console.log(chrome.alarms)
+		chrome.alarms.create('', {
+			periodInMinutes: 0.5, // can't do faster than 30s :( https://developer.chrome.com/docs/extensions/reference/alarms
+		}, updateBadgeIcon);
+	// }
+
+console.log('last')
