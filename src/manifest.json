@@ -1,0 +1,18 @@
+{
+  "name": "GitHub app badge notification",
+  "version": "1.0.0",
+  "manifest_version": 2,
+  "description": "Show badge notifications in the taskbar when using GitHub as a PWA",
+  "homepage_url": "https://github.com/Frezzle/github-app-badge-notification",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://github.com/*"],
+      "js": ["content.js"]
+    }
+  ]
+}
