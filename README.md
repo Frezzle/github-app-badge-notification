@@ -6,7 +6,7 @@ Chrome extension for showing notifications in a badge when GitHub is installed a
 
 ## Setup
 
-1. ~Install the extension from Chrome Web Store~ (not yet available in Chrome Web Store); clone this repo, go to Chrome -> Extensions -> Manage Extensions, enable Developer Mode, click Load Unpacked and select the repo folder.
+1. ~Install the extension from Chrome Web Store~ (not yet available in Chrome Web Store); clone this repo, go to Chrome -> Extensions -> Manage Extensions, enable Developer Mode, click Load Unpacked and select this repo's `src` folder.
 2. Add GitHub as an app. You can do so by following [this guide](https://support.google.com/chrome_webstore/answer/3060053?hl=en). **Make sure to select the option "open as a window".**
 3. Open the app.
 
